@@ -847,6 +847,13 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+
+    @media print {
+      .page-break {
+        page-break-before: always;
+        break-before: always;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1009,7 +1016,9 @@
         </div>
       </div>
     </section>
-
+    
+    <div class="page-break"></div>
+    
     <!-- SOLUTION -->
     <section class="section" id="solution">
       <div class="shell">
@@ -1071,7 +1080,9 @@
         </div>
       </div>
     </section>
-
+    
+    <div class="page-break"></div>
+    
     <!-- MARKET & TRACTION -->
     <section class="section" id="market">
       <div class="shell">
@@ -1148,7 +1159,9 @@
         </div>
       </div>
     </section>
-
+    
+    <div class="page-break"></div>
+    
     <!-- BUSINESS MODEL -->
     <section class="section" id="model">
       <div class="shell">
@@ -1197,7 +1210,9 @@
         </div>
       </div>
     </section>
-
+    
+    <div class="page-break"></div>
+    
     <!-- INVESTOR SECTION / ASK -->
     <section class="section" id="investors">
       <div class="shell">
