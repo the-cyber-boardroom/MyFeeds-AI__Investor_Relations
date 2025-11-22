@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MyFeeds-AI – Never Miss Critical Cyber News</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MyFeeds-AI is an explainable, GenAI-powered personalized cybersecurity news feed that cuts through the noise and saves time for CISOs, security teams and executives.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-alt: #060a18;
+      --bg-card: #0b1020;
+      --accent: #4f46e5;
+      --accent-soft: rgba(79,70,229,0.25);
+      --accent-strong: #6366f1;
+      --accent-2: #22d3ee;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148,163,184,0.4);
+      --radius-lg: 18px;
+      --radius-xl: 26px;
+      --shadow-soft: 0 22px 45px rgba(15,23,42,0.7);
+      --shadow-soft-alt: 0 16px 40px rgba(15,23,42,0.8);
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 45%, #020617 100%);
+      color: var(--text-main);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shell {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* NAVBAR */
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(16px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.95), rgba(2,6,23,0.75));
+      border-bottom: 1px solid rgba(148,163,184,0.15);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: radial-gradient(circle at 20% 15%, #22d3ee, transparent 50%),
+                  radial-gradient(circle at 80% 80%, #6366f1, transparent 55%),
+                  #020617;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 25px rgba(15,23,42,0.9), 0 0 0 1px rgba(148,163,184,0.35);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-tagline {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 0.1rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.1rem;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.2s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.95rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.45), transparent 55%),
+                  linear-gradient(110deg, #4f46e5, #22d3ee);
+      box-shadow: 0 10px 30px rgba(15,23,42,0.85);
+    }
+
+    .nav-cta span:last-child {
+      font-size: 1rem;
+    }
+
+    .nav-burger {
+      display: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      background: radial-gradient(circle at 0 0, rgba(148,163,184,0.35), transparent 52%), #020617;
+    }
+
+    .nav-burger-bar {
+      width: 16px;
+      height: 1.5px;
+      border-radius: 999px;
+      background: var(--text-main);
+      margin: 3px 0;
+    }
+
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-bottom: 0.8rem;
+    }
+
+    .nav-mobile a {
+      padding: 0.35rem 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-mobile .nav-cta {
+      margin-top: 0.4rem;
+      justify-content: center;
+    }
+
+    /* HERO */
+
+    .hero {
+      padding: 3.5rem 0 4.5rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.35fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.18rem 0.7rem 0.18rem 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.25), transparent 55%), #020617;
+      box-shadow: 0 12px 32px rgba(15,23,42,0.75);
+      margin-bottom: 1.1rem;
+      font-size: 0.8rem;
+    }
+
+    .eyebrow-pill {
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,184,0.6);
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    .eyebrow span:last-child {
+      color: var(--text-muted);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.6rem, 3.1vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 1rem;
+    }
+
+    .hero h1 span.accent {
+      background: linear-gradient(120deg, #22d3ee, #a855f7, #6366f1);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: #d1d5db;
+      max-width: 32rem;
+    }
+
+    .hero-subtitle strong {
+      color: var(--accent-2);
+      font-weight: 500;
+    }
+
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 1.8rem 0 2.2rem;
+    }
+
+    .hero-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .hero-metric-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .hero-metric-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 999px;
+      border: 0;
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 500;
+      background: radial-gradient(circle at 0% 0%, rgba(56,189,248,0.5), transparent 55%),
+                  linear-gradient(110deg, #4f46e5, #22d3ee);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary span.icon {
+      font-size: 1.1rem;
+    }
+
+    .btn-ghost {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.55);
+      background: radial-gradient(circle at 0 0, rgba(148,163,184,0.28), transparent 55%), #020617;
+      padding: 0.75rem 1.25rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    .hero-footnote {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.8rem;
+    }
+
+    .hero-visual {
+      position: relative;
+    }
+
+    .glass-panel {
+      position: relative;
+      border-radius: var(--radius-xl);
+      padding: 1.3rem 1.2rem 1.6rem;
+      background: radial-gradient(circle at 0 0, rgba(56,189,248,0.3), transparent 55%),
+                  radial-gradient(circle at 75% 100%, rgba(129,140,248,0.7), transparent 65%),
+                  rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.5);
+      box-shadow: var(--shadow-soft-alt);
+      overflow: hidden;
+    }
+
+    .glass-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .glass-title {
+      font-size: 0.85rem;
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    .glass-role {
+      font-size: 0.75rem;
+      color: var(--accent-2);
+      font-weight: 500;
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(56,189,248,0.8);
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 0.35rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.5);
+      padding: 0.2rem 0.55rem;
+      font-size: 0.7rem;
+      color: #e5e7eb;
+      background: rgba(15,23,42,0.9);
+    }
+
+    .pill.primary {
+      border-color: rgba(56,189,248,0.9);
+      background: rgba(15,23,42,0.8);
+    }
+
+    .feed-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.4rem 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .feed-item {
+      padding: 0.55rem 0.6rem;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.7rem;
+    }
+
+    .feed-item-main {
+      max-width: 75%;
+    }
+
+    .feed-item-title {
+      font-weight: 500;
+      margin-bottom: 0.15rem;
+    }
+
+    .feed-item-meta {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 0.55rem;
+      align-items: center;
+    }
+
+    .feed-chip {
+      font-size: 0.65rem;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56,189,248,0.75);
+      color: var(--accent-2);
+    }
+
+    .feed-item-score {
+      font-size: 0.75rem;
+      color: #f9fafb;
+      text-align: right;
+    }
+
+    .feed-item-score span {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .trust-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px dashed rgba(148,163,184,0.5);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(56,189,248,0.7);
+      color: var(--accent-2);
+    }
+
+    .trust-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34,197,94,0.7);
+    }
+
+    .hero-annotation {
+      position: absolute;
+      inset: auto 0 -18px 26%;
+      transform: translateY(100%);
+      max-width: 260px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .hero-annotation strong {
+      color: #e5e7eb;
+    }
+
+    /* SECTIONS */
+
+    section.section {
+      padding: 3.25rem 0;
+      border-top: 1px solid rgba(30,64,175,0.22);
+    }
+
+    section.section:nth-child(odd) {
+      background: radial-gradient(circle at top left, #020617 0, #020617 55%, #020617 100%);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-2);
+      margin-bottom: 0.35rem;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .section-description {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 420px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.1rem;
+      align-items: flex-start;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 1.4rem;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: radial-gradient(circle at top left, rgba(30,64,175,0.35), transparent 60%),
+                  rgba(15,23,42,0.95);
+      box-shadow: var(--shadow-soft-alt);
+    }
+
+    .card-alt {
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.25), transparent 60%),
+                  rgba(15,23,42,0.96);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .bullet-list {
+      margin: 0.8rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .bullet-list li + li {
+      margin-top: 0.3rem;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .stat-pill {
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(15,23,42,0.96);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .stat-pill span.value {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.1rem;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.9);
+      color: var(--text-muted);
+    }
+
+    .badge.accent {
+      border-color: rgba(56,189,248,0.8);
+      color: var(--accent-2);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1rem;
+      font-size: 0.85rem;
+      margin-top: 0.7rem;
+    }
+
+    .timeline-item {
+      padding: 0.7rem 0.9rem;
+      border-radius: 14px;
+      border: 1px dashed rgba(148,163,184,0.65);
+      background: rgba(15,23,42,0.96);
+    }
+
+    .timeline-item span.label {
+      font-size: 0.8rem;
+      color: var(--accent-2);
+      display: inline-block;
+      margin-bottom: 0.15rem;
+    }
+
+    .timeline-item strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.1rem;
+    }
+
+    .quote {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-style: italic;
+      border-left: 2px solid rgba(148,163,184,0.7);
+      padding-left: 0.8rem;
+      margin-top: 0.9rem;
+    }
+
+    .quote span {
+      display: block;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: var(--text-main);
+      font-style: normal;
+    }
+
+    .columns-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .big-number {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .number-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .funding-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    .pie-legend {
+      display: grid;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .legend-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: rgba(79,70,229,0.85);
+      box-shadow: 0 0 0 1px rgba(148,163,184,0.7);
+    }
+
+    .legend-dot.mkt {
+      background: rgba(56,189,248,0.9);
+    }
+
+    .legend-dot.partner {
+      background: rgba(14,165,233,0.85);
+    }
+
+    .legend-dot.admin {
+      background: rgba(148,163,184,0.9);
+    }
+
+    .investor-note {
+      margin-top: 1rem;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    .investor-cta {
+      margin-top: 1.1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+    }
+
+    .pill-soft {
+      border-radius: 999px;
+      padding: 0.25rem 0.6rem;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-muted);
+    }
+
+    /* FOOTER */
+
+    footer {
+      margin-top: 2rem;
+      padding: 1.8rem 0 2rem;
+      border-top: 1px solid rgba(15,23,42,0.9);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .hero {
+        padding-top: 2.2rem;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .grid-2,
+      .funding-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .columns-3,
+      .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-annotation {
+        position: static;
+        transform: none;
+        margin-top: 0.9rem;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-burger {
+        display: inline-flex;
+        flex-direction: column;
+      }
+
+      .nav-mobile {
+        display: flex;
+      }
+
+      .columns-3,
+      .stat-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- NAV -->
+  <header class="nav">
+    <div class="shell">
+      <div class="nav-inner">
+        <a href="#top" class="brand">
+          <div class="brand-mark">MF</div>
+          <div class="brand-text">
+            <span class="brand-name">MyFeeds-AI</span>
+            <span class="brand-tagline">Explainable Cyber Intelligence</span>
+          </div>
+        </a>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a href="#problem">Problem</a>
+          <a href="#solution">Solution</a>
+          <a href="#market">Market</a>
+          <a href="#model">Business Model</a>
+          <a href="#investors">For Investors</a>
+          <a href="https://mvp.myfeeds.ai" target="_blank" rel="noreferrer" class="nav-cta">
+            <span>Open MVP</span>
+            <span>↗</span>
+          </a>
+        </nav>
+        <button class="nav-burger" type="button" aria-label="Toggle navigation" onclick="document.querySelector('.nav-mobile').classList.toggle('open')">
+          <div class="nav-burger-bar"></div>
+          <div class="nav-burger-bar"></div>
+        </button>
+      </div>
+      <div class="nav-mobile" aria-label="Mobile navigation">
+        <a href="#problem">Problem</a>
+        <a href="#solution">Solution</a>
+        <a href="#market">Market</a>
+        <a href="#model">Business Model</a>
+        <a href="#investors">For Investors</a>
+        <a href="https://mvp.myfeeds.ai" target="_blank" rel="noreferrer" class="nav-cta">
+          <span>Open MVP</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main id="top">
+    <section class="hero shell" id="problem">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-pill">Cyber information overload</span>
+            <span>Hours of threat news — distilled into minutes.</span>
+          </div>
+          <h1>
+            Stop drinking from the <span class="accent">cyber firehose</span>.
+            Get the 5 things that actually matter.
+          </h1>
+          <p class="hero-subtitle">
+            MyFeeds-AI is your <strong>personalized, explainable cyber briefing</strong> —
+            surfacing critical threats and trends for each role, on time and with full provenance.
+          </p>
+
+          <div class="hero-metrics">
+            <div class="hero-metric">
+              <span class="hero-metric-value">⏱ ~90% less time</span>
+              <span class="hero-metric-label">spent scanning cyber news per day</span>
+            </div>
+            <div class="hero-metric">
+              <span class="hero-metric-value">⚠️ 0 blind spots</span>
+              <span class="hero-metric-label">critical alerts backed by sources</span>
+            </div>
+            <div class="hero-metric">
+              <span class="hero-metric-value">👤 Multi-persona</span>
+              <span class="hero-metric-label">CISO, analyst, CEO, board — each in their language</span>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="btn-primary" href="https://mvp.myfeeds.ai" target="_blank" rel="noreferrer">
+              <span class="icon">▶</span>
+              <span>Try the live MVP</span>
+            </a>
+            <a class="btn-ghost" href="#solution">
+              <span>See how it works</span>
+              <span>↓</span>
+            </a>
+          </div>
+          <p class="hero-footnote">
+            “We sell time back to cyber teams by turning noise into a trusted, role-aware feed.”
+          </p>
+        </div>
+
+        <div class="hero-visual">
+          <!-- This “glass feed” visually represents your product. Replace with a custom illustration if you prefer. -->
+          <div class="glass-panel">
+            <div class="glass-header">
+              <div class="glass-title">Today’s cyber briefing</div>
+              <div class="glass-role">CISO view</div>
+            </div>
+            <div class="pill-row">
+              <div class="pill primary">Ransomware</div>
+              <div class="pill">Zero-days</div>
+              <div class="pill">Regulation</div>
+              <div class="pill">Vendors</div>
+            </div>
+            <ul class="feed-list">
+              <li class="feed-item">
+                <div class="feed-item-main">
+                  <div class="feed-item-title">New MOVEit-like exploit targeting financials</div>
+                  <div class="feed-item-meta">
+                    <span>Risk: High · 12 mins ago</span>
+                    <span class="feed-chip">3 verified sources</span>
+                  </div>
+                </div>
+                <div class="feed-item-score">
+                  9.4/10
+                  <span>Impact score</span>
+                </div>
+              </li>
+              <li class="feed-item">
+                <div class="feed-item-main">
+                  <div class="feed-item-title">EU AI &amp; cybersecurity guidance for boards</div>
+                  <div class="feed-item-meta">
+                    <span>Exec brief · 3 min read</span>
+                    <span class="feed-chip">Drill-down</span>
+                  </div>
+                </div>
+                <div class="feed-item-score">
+                  8.1/10
+                  <span>Relevance</span>
+                </div>
+              </li>
+              <li class="feed-item">
+                <div class="feed-item-main">
+                  <div class="feed-item-title">Critical OpenSSL patch for your stack</div>
+                  <div class="feed-item-meta">
+                    <span>Action: notify engineering</span>
+                    <span class="feed-chip">Persona: Eng</span>
+                  </div>
+                </div>
+                <div class="feed-item-score">
+                  9.8/10
+                  <span>Urgency</span>
+                </div>
+              </li>
+            </ul>
+            <div class="trust-footer">
+              <span>Every summary is backed by a <u>knowledge graph</u> + full source trail.</span>
+              <span class="trust-badge">
+                <span class="trust-badge-dot"></span>
+                <span>No black-box AI</span>
+              </span>
+            </div>
+          </div>
+          <p class="hero-annotation">
+            <strong>Before:</strong> CISOs drowning in endless RSS feeds, blogs, and reports.<br>
+            <strong>After:</strong> 1 concise, explainable feed per role — with signals, not noise.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="section" id="solution">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <div class="section-tag">Solution overview</div>
+            <h2 class="section-title">Explainable AI briefings, tuned to every cyber role.</h2>
+          </div>
+          <p class="section-description">
+            MyFeeds-AI ingests cybersecurity news, builds a rich knowledge graph, and uses large language models as
+            <strong>transparent assistants</strong> — not oracles — to generate trusted, role-aware briefings with source attribution.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>How it works</h3>
+            <p>
+              Under the hood, MyFeeds-AI combines <strong>semantic knowledge graphs</strong> with <strong>GenAI summarisation</strong>,
+              wired into persona-specific interest graphs.
+            </p>
+            <ul class="bullet-list">
+              <li><strong>Ingest.</strong> News feeds, threat intel, blogs &amp; reports flow into a unified knowledge graph.</li>
+              <li><strong>Analyse.</strong> Entities, relationships and risks are mapped and scored by deterministic logic.</li>
+              <li><strong>Personalise.</strong> LLMs generate summaries aligned to each persona’s priorities and vocabulary.</li>
+              <li><strong>Explain.</strong> Every alert links back to evidence, sources and “why this was surfaced”.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge accent">No black-box decisions</span>
+              <span class="badge">Full provenance per alert</span>
+              <span class="badge">Audit-friendly output</span>
+            </div>
+          </div>
+
+          <div class="card card-alt">
+            <h3>Role-aware briefings</h3>
+            <p>
+              The same event looks different to a CISO, a security engineer and a CEO. MyFeeds-AI adapts in real time:
+            </p>
+            <div class="stat-grid">
+              <div class="stat-pill">
+                <span class="value">CISO</span>
+                Board-level risk and exposure, mapped to your environment.
+              </div>
+              <div class="stat-pill">
+                <span class="value">Engineer</span>
+                Concrete CVEs, patches and repos to act on now.
+              </div>
+              <div class="stat-pill">
+                <span class="value">CEO / Board</span>
+                Plain-language summaries with business and regulatory impact.
+              </div>
+            </div>
+            <p style="margin-top:0.85rem;font-size:0.82rem;color:var(--text-muted);">
+              One source of truth. Multiple views. Zero duplicated work for your team.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKET & TRACTION -->
+    <section class="section" id="market">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <div class="section-tag">Market &amp; early traction</div>
+            <h2 class="section-title">Massive information-overload market. Cyber is our beachhead.</h2>
+          </div>
+          <p class="section-description">
+            Knowledge workers in every high-stakes domain suffer from news overload. We start with cybersecurity —
+            where missing a signal can mean a breach.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Beachhead today, expansion tomorrow</h3>
+            <p>
+              Tens of millions of professionals globally rely on timely, curated information to do their jobs. We focus first on:
+            </p>
+            <ul class="bullet-list">
+              <li><strong>Cybersecurity professionals</strong> — CISOs, security directors, analysts and incident teams.</li>
+              <li><strong>Thousands of organisations</strong> globally that need to stay ahead of threats, not chase them.</li>
+              <li><strong>Future verticals</strong> such as finance and healthcare where explainable AI curation is equally critical.</li>
+            </ul>
+
+            <div class="columns-3" style="margin-top:1rem;">
+              <div>
+                <div class="label">TAM</div>
+                <div class="big-number">10M+</div>
+                <div class="number-note">knowledge workers who need curated, trusted intel.</div>
+              </div>
+              <div>
+                <div class="label">SAM</div>
+                <div class="big-number">~100k</div>
+                <div class="number-note">cyber-focused organisations globally.</div>
+              </div>
+              <div>
+                <div class="label">SOM</div>
+                <div class="big-number">1–2k</div>
+                <div class="number-note">early-adopter orgs reachable via the founder’s network.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-alt">
+            <h3>Live MVP &amp; early validation</h3>
+            <p>
+              MyFeeds-AI is already live as an MVP, delivering personalised cyber digests to multiple personas using real data.
+            </p>
+            <div class="timeline">
+              <div class="timeline-item">
+                <span class="label">Now</span>
+                <strong>Live MVP at mvp.myfeeds.ai</strong>
+                Multi-persona cyber news briefings across C-suite and technical roles.
+              </div>
+              <div class="timeline-item">
+                <span class="label">Pilot feedback</span>
+                <strong>CISOs validate time saved</strong>
+                Early testers report significant reduction in time spent scanning cyber news — while feeling better informed.
+              </div>
+              <div class="timeline-item">
+                <span class="label">Founder advantage</span>
+                <strong>Serial security entrepreneur</strong>
+                Dinis Cruz brings a deep cyber network and prior successful exit to accelerate distribution.
+              </div>
+            </div>
+
+            <div class="quote">
+              “MyFeeds-AI cut my daily cyber news scanning from hours to minutes and made it easier to brief my team.”
+              <span>— Early CISO pilot (beta)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUSINESS MODEL -->
+    <section class="section" id="model">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <div class="section-tag">Business model</div>
+            <h2 class="section-title">SaaS subscriptions with content-sharing upside. Profitable per user from day one.</h2>
+          </div>
+          <p class="section-description">
+            MyFeeds-AI monetises through recurring SaaS, enterprise licenses and aligned content partnerships —
+            designed so that every post-trial user contributes margin.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h3>Three complementary revenue streams</h3>
+            <ul class="bullet-list">
+              <li><strong>1. Subscriptions (B2C &amp; teams).</strong> Free tier for basic daily briefs. Premium tiers (tens of € / month)
+                unlock advanced filters, real-time alerts and premium sources.</li>
+              <li><strong>2. Enterprise licenses.</strong> Organisation-wide seats with multiple persona feeds (engineers, execs, boards)
+                and optional on-prem for compliance-sensitive customers.</li>
+              <li><strong>3. Content partnerships.</strong> Revenue-sharing with publishers when their content appears in feeds,
+                rewarding high-quality journalism instead of competing with it.</li>
+            </ul>
+
+            <div class="badge-row">
+              <span class="badge">Recurring revenue</span>
+              <span class="badge">Usage-based upsells</span>
+              <span class="badge accent">On-prem AI as a moat</span>
+            </div>
+          </div>
+
+          <div class="card card-alt">
+            <h3>Unit economics &amp; ecosystem</h3>
+            <p>
+              The platform is designed so that each user’s subscription price exceeds the LLM API cost of serving their feed,
+              delivering healthy gross margins from day one.
+            </p>
+            <ul class="bullet-list">
+              <li>Lean, serverless infrastructure keeps fixed costs low and scales linearly with demand.</li>
+              <li>Every user after trial contributes positive margin — no “growth at negative gross margin”.</li>
+              <li>Revenue sharing creates a virtuous cycle: the more we pay content providers, the more value we deliver to users.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVESTOR SECTION / ASK -->
+    <section class="section" id="investors">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <div class="section-tag">For investors</div>
+            <h2 class="section-title">Raising €300k to make explainable AI briefings the norm in cybersecurity.</h2>
+          </div>
+          <p class="section-description">
+            Capital-efficient, cloud-native and focused on product-market fit in cyber — with a clear path to ARR and
+            future verticals.
+          </p>
+        </div>
+
+        <div class="funding-grid">
+          <div class="card">
+            <h3>The ask</h3>
+            <p>
+              We are raising <strong>€300,000</strong> for a <strong>20% equity stake</strong>, implying a <strong>€1.5M post-money valuation</strong>.
+              This provides <strong>12–18 months of runway</strong> given our lean setup and low burn.
+            </p>
+
+            <div class="columns-3" style="margin-top:1rem;">
+              <div>
+                <div class="label">Round size</div>
+                <div class="big-number">€300k</div>
+                <div class="number-note">early-stage capital to accelerate product &amp; go-to-market.</div>
+              </div>
+              <div>
+                <div class="label">Equity</div>
+                <div class="big-number">20%</div>
+                <div class="number-note">aligned with angel &amp; seed investors.</div>
+              </div>
+              <div>
+                <div class="label">Runway</div>
+                <div class="big-number">12–18 mo</div>
+                <div class="number-note">to hit PMF and strong early ARR.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card card-alt">
+            <h3>Use of funds</h3>
+            <p>
+              Funding is allocated to hit clear product, revenue and market milestones in the cybersecurity vertical.
+            </p>
+
+            <div class="pie-legend">
+              <div class="legend-item">
+                <span class="legend-dot"></span>
+                <span><strong>50% · Product &amp; engineering.</strong> Hire ~2 engineers, ship advanced analytics and feedback loops faster.</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot mkt"></span>
+                <span><strong>25% · Marketing &amp; community.</strong> Targeted campaigns at cyber conferences and online communities.</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot partner"></span>
+                <span><strong>15% · Content partnerships.</strong> Integrations and incentives for key premium content providers.</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot admin"></span>
+                <span><strong>10% · Admin &amp; legal.</strong> Keep the operation compliant, lean and ready for the next round.</span>
+              </div>
+            </div>
+
+            <div class="investor-note">
+              Milestones with this round:
+              <ul class="bullet-list">
+                <li>Achieve strong product-market fit in cybersecurity.</li>
+                <li>Convert pilots into paying customers; target ~€200k+ ARR within 18 months.</li>
+                <li>Secure flagship enterprise references to support a Seed+ / Series A raise.</li>
+              </ul>
+            </div>
+
+            <div class="investor-cta">
+              <a href="mailto:founder@example.com?subject=MyFeeds-AI%20Investor%20Intro" class="btn-primary">
+                <span>Request full deck</span>
+                <span class="icon">✉</span>
+              </a>
+              <span class="pill-soft">Seeking angels who bring cyber, SaaS or media experience.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="shell">
+      <div class="footer-inner">
+        <span>© <span id="year"></span> MyFeeds-AI. All rights reserved.</span>
+        <div class="footer-links">
+          <a href="#problem">Overview</a>
+          <a href="#solution">Product</a>
+          <a href="#market">Market</a>
+          <a href="#investors">Investors</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
