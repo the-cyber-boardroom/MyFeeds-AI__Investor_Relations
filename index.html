@@ -854,12 +854,18 @@
         break-before: always;
       }
     }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
 <div class="page">
   <!-- NAV -->
-  <header class="nav">
+  <header class="nav no-print">
     <div class="shell">
       <div class="nav-inner">
         <a href="#top" class="brand">
@@ -872,6 +878,7 @@
         <nav class="nav-links" aria-label="Primary navigation">
           <a href="#problem">Problem</a>
           <a href="#solution">Solution</a>
+          <a href="#tech-strategy">Tech Strategy</a> 
           <a href="#market">Market</a>
           <a href="#model">Business Model</a>
           <a href="#investors">For Investors</a>
@@ -1083,7 +1090,126 @@
     
     <div class="page-break"></div>
     
+    <!-- Tech Strategy -->
+
+  <section class="section" id="tech-strategy">
+    <div class="shell">
+      <div class="section-header">
+        <div>
+          <div class="section-tag">Technology Strategy</div>
+          <h2 class="section-title">Radical Architecture: 100% Open Source, Serverless Graph, Zero Lock-in.</h2>
+        </div>
+        <p class="section-description">
+          Built for explainability, determinism, and deployment anywhere. 
+          This isn't a prototype that needs to be "productionized", it's production-ready from day one.
+        </p>
+      </div>
+
+      <div class="columns-3" style="gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.5rem;">🔓</span> 100% Open Source
+          </h3>
+          <p style="margin-bottom: 0.8rem;">
+            <strong>ALL code is open source</strong> — not just core components. Full transparency 
+            for security audits and compliance.
+          </p>
+          <ul class="bullet-list" style="font-size: 0.85rem;">
+            <li>Complete codebase on GitHub</li>
+            <li>Security teams can audit everything</li>            
+            <li>No vendor lock-in, ever</li>
+          </ul>
+          <div class="badge-row" style="margin-top: 0.8rem;">
+            <span class="badge accent">Zero black boxes</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.5rem;">☁️</span> Serverless Graph DB
+          </h3>
+          <p style="margin-bottom: 0.8rem;">
+            <strong>No traditional "always-on" databases.</strong> We use cloud storage (S3) as our 
+            database with serverless graph processing.
+          </p>
+          <ul class="bullet-list" style="font-size: 0.85rem;">
+            <li>S3 as primary data store</li>
+            <li>Serverless graph computations</li>
+            <li>Built-in intelligent caching</li>
+          </ul>
+          <div class="badge-row" style="margin-top: 0.8rem;">
+            <span class="badge accent">Infinitely scalable</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+            <span style="font-size: 1.5rem;">🌐</span> Runs Anywhere
+          </h3>
+          <p style="margin-bottom: 0.8rem;">
+            Deploy on <strong>Lambda, Kubernetes, or customer's own cloud</strong> — a unique 
+            revenue model others can't match.
+          </p>
+          <ul class="bullet-list" style="font-size: 0.85rem;">
+            <li>AWS Lambda (our SaaS)</li>
+            <li>Kubernetes (on-prem)</li>
+            <li>Customer cloud environments</li>
+          </ul>
+          <div class="badge-row" style="margin-top: 0.8rem;">
+            <span class="badge accent">Enterprise-ready</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="gap: 2rem;">
+        <div class="card">
+          <h3>Semantic Knowledge Graphs</h3>
+          <p style="margin-bottom: 0.8rem;">
+            Our graph-first architecture delivers <strong>explainability and determinism</strong> — 
+            rare in GenAI solutions.
+          </p>
+          <ul class="bullet-list">
+            <li><strong>Explainable AI:</strong> Every recommendation traces back to source data</li>
+            <li><strong>Deterministic outputs:</strong> Same input = same output, always</li>
+            <li><strong>Relationship intelligence:</strong> Connections between entities ARE the intelligence</li>            
+          </ul>
+          <div class="quote" style="margin-top: 1rem;">
+            "You can literally click through to see WHY any piece of news was selected and HOW it connects to your interests"
+          </div>
+        </div>
+
+        <div class="card card-alt">
+          <h3>Enterprise-Grade NFRs</h3>
+          <p style="margin-bottom: 0.8rem;">
+            Built with <strong>Non-Functional Requirements</strong> as first-class citizens.
+          </p>
+          <div class="stat-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="stat-pill">
+              <span class="value">CI/CD Pipeline</span>
+              Automated testing & deployment
+            </div>
+            <div class="stat-pill">
+              <span class="value">Stateless Services</span>
+              Every service is independent
+            </div>
+            <div class="stat-pill">
+              <span class="value">100% Test Coverage</span>
+              Unit, integration, end-to-end
+            </div>
+            <div class="stat-pill">
+              <span class="value">Built-in Caching</span>
+              Intelligent cache at every layer
+            </div>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <div class="page-break"></div>
+
     <!-- MARKET & TRACTION -->
+
     <section class="section" id="market">
       <div class="shell">
         <div class="section-header">
@@ -1159,8 +1285,9 @@
         </div>
       </div>
     </section>
-    
+
     <div class="page-break"></div>
+
     
     <!-- BUSINESS MODEL -->
     <section class="section" id="model">
@@ -1263,15 +1390,15 @@
             <div class="pie-legend">
               <div class="legend-item">
                 <span class="legend-dot"></span>
-                <span><strong>50% · Product &amp; engineering.</strong> Hire ~2 engineers, ship advanced analytics and feedback loops faster.</span>
+                <span><strong>70% · Product &amp; engineering.</strong> Hire on-demand engineering team, ship advanced analytics and feedback loops faster.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot mkt"></span>
-                <span><strong>25% · Marketing &amp; community.</strong> Targeted campaigns at cyber conferences and online communities.</span>
+                <span><strong>10% · Marketing &amp; community.</strong> Targeted campaigns at cyber conferences and online communities.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot partner"></span>
-                <span><strong>15% · Content partnerships.</strong> Integrations and incentives for key premium content providers.</span>
+                <span><strong>10% · Content partnerships.</strong> Integrations and incentives for key premium content providers.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot admin"></span>
@@ -1283,7 +1410,7 @@
               Milestones with this round:
               <ul class="bullet-list">
                 <li>Achieve strong product-market fit in cybersecurity.</li>
-                <li>Convert pilots into paying customers; target ~€200k+ ARR within 18 months.</li>
+                <li>Convert pilots into paying customers; target ~€500k+ ARR within 18 months.</li>
                 <li>Secure flagship enterprise references to support a Seed+ / Series A raise.</li>
               </ul>
             </div>
@@ -1303,7 +1430,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer>
+  <footer class="no-print">
     <div class="shell">
       <div class="footer-inner">
         <span>© <span id="year"></span> MyFeeds-AI. All rights reserved.</span>
