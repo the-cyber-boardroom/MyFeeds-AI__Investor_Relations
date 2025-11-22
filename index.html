@@ -233,12 +233,12 @@
       border: 1px solid rgba(148,163,184,0.4);
       background: radial-gradient(circle at 0 0, rgba(56,189,248,0.25), transparent 55%), #020617;
       box-shadow: 0 12px 32px rgba(15,23,42,0.75);
-      margin-bottom: 1.1rem;
+      margin-bottom: 3.1rem;
       font-size: 0.8rem;
     }
 
     .eyebrow-pill {
-      padding: 0.15rem 0.55rem;
+      padding: 0.15rem 0.55rem;      
       border-radius: 999px;
       font-size: 0.72rem;
       text-transform: uppercase;
@@ -495,9 +495,9 @@
 
     .hero-annotation {
       position: absolute;
-      inset: auto 0 -18px 26%;
+      inset: auto 0 -18px 10%;
       transform: translateY(100%);
-      max-width: 260px;
+      max-width: 460px;
       font-size: 0.75rem;
       color: var(--text-muted);
     }
@@ -795,11 +795,8 @@
 
     @media (max-width: 900px) {
       .hero-inner {
+        padding: 20px;
         grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-visual {
-        order: -1;
       }
 
       .hero {
@@ -847,6 +844,9 @@
         grid-template-columns: minmax(0, 1fr);
       }
     }
+
+
+    
     .nav-mobile.open {
       display: flex;
     }
@@ -865,17 +865,59 @@
       }
     }
 
+    .print-footer {
+      display: none;
+    }
+
     @media print {
+      
+      @page {
+        margin: 0;
+        size: auto;
+      }
+  
       .page-break {
         page-break-before: always;
         break-before: always;
       }
-    }
-
-    @media print {
+    
       .no-print {
         display: none !important;
       }
+
+      /* Remove borders from all cards and panels when printing */
+      .card, .card-alt, .glass-panel, .stat-pill, .feed-item {
+        border: none !important;
+        box-shadow: none !important;
+      }
+      
+      /* Remove borders from badges and pills */
+      .badge, .pill, .eyebrow, .nav-cta, .btn-primary, .btn-ghost {
+        border: none !important;
+        box-shadow: none !important;
+      }
+      
+      /* Remove section borders */
+      section.section {
+        border-top: none !important;
+      }
+      
+      * {
+           outline: none !important;
+      }
+
+    
+      .print-footer {
+        display: flex;
+        justify-content: space-between;
+        position: fixed;
+        bottom: 0.5cm;
+        left: 2cm;
+        right: 1cm;
+        font-size: 9pt;
+        color: #666;
+        z-index: 9999;
+      }          
     }
   </style>
 </head>
@@ -932,29 +974,30 @@
         <div>
           <div class="eyebrow">
             <span class="eyebrow-pill">Cyber information overload</span>
-            <span>Hours of threat news — distilled into minutes.</span>
+            <span>Hours of threat news - distilled into minutes.</span>
           </div>
+          <br>
           <h1>
             Stop drinking from the <span class="accent">cyber firehose</span>.
-            Get the 5 things that actually matter.
+            Get the news that actually matter.
           </h1>
           <p class="hero-subtitle">
-            MyFeeds-AI is your <strong>personalized, explainable cyber briefing</strong> —
+            MyFeeds-AI is your <strong>personalized, explainable cyber briefing</strong> -
             surfacing critical threats and trends for each role, on time and with full provenance.
           </p>
 
           <div class="hero-metrics">
             <div class="hero-metric">
-              <span class="hero-metric-value">⏱ ~90% less time</span>
-              <span class="hero-metric-label">spent scanning cyber news per day</span>
+              <span class="hero-metric-value">📡 Early detection</span>
+              <span class="hero-metric-label">spot relevant threats before they trend</span>
             </div>
             <div class="hero-metric">
-              <span class="hero-metric-value">⚠️ 0 blind spots</span>
-              <span class="hero-metric-label">critical alerts backed by sources</span>
+              <span class="hero-metric-value">🎯 Clear priorities</span>
+              <span class="hero-metric-label">know exactly where to focus your attention</span>
             </div>
             <div class="hero-metric">
               <span class="hero-metric-value">👤 Multi-persona</span>
-              <span class="hero-metric-label">CISO, analyst, CEO, board — each in their language</span>
+              <span class="hero-metric-label">personalised briefings for CISO, analyst, CEO, board (each in their language, culture and role)</span>
             </div>
           </div>
 
@@ -1037,7 +1080,7 @@
           </div>
           <p class="hero-annotation">
             <strong>Before:</strong> CISOs drowning in endless RSS feeds, blogs, and reports.<br>
-            <strong>After:</strong> 1 concise, explainable feed per role — with signals, not noise.
+            <strong>After:</strong> 1 concise, explainable feed per role - with signals, not noise.
           </p>
         </div>
       </div>
@@ -1051,11 +1094,11 @@
         <div class="section-header">
           <div>
             <div class="section-tag">Solution overview</div>
-            <h2 class="section-title">Explainable AI briefings, tuned to every cyber role.</h2>
+            <h2 class="section-title">Explainable cyber-security briefings, tuned to multiple personas, cultures and roles.</h2>
           </div>
           <p class="section-description">
-            MyFeeds-AI ingests cybersecurity news, builds a rich knowledge graph, and uses large language models as
-            <strong>transparent assistants</strong> — not oracles — to generate trusted, role-aware briefings with source attribution.
+            MyFeeds-AI ingests cybersecurity news, builds rich Semantic Knowledge Graphs, and uses GenAI models as
+            <strong>transparent assistants</strong> to generate trusted, personalised and role-aware briefings with source attribution.
           </p>
         </div>
 
@@ -1070,7 +1113,7 @@
               <li><strong>Ingest.</strong> News feeds, threat intel, blogs &amp; reports flow into a unified knowledge graph.</li>
               <li><strong>Analyse.</strong> Entities, relationships and risks are mapped and scored by deterministic logic.</li>
               <li><strong>Personalise.</strong> LLMs generate summaries aligned to each persona’s priorities and vocabulary.</li>
-              <li><strong>Explain.</strong> Every alert links back to evidence, sources and “why this was surfaced”.</li>
+              <li><strong>Explain.</strong> Every alert links back to evidence and sources = provenance</li>
             </ul>
 
             <div class="badge-row">
@@ -1103,7 +1146,40 @@
               One source of truth. Multiple views. Zero duplicated work for your team.
             </p>
           </div>
+          <div class="print-footer">
+            <span>MyFeeds-AI • CC-BY 4.0 • v0.1.1 • 22 Nov 2024</span>
+            <span class="page-number"></span>
+          </div>
         </div>
+
+    
+        <!-- Knowledge Graph Examples -->
+        <div style="margin-top: 2rem;">          
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; align-items: start;">
+            <div style="text-align: left;">
+              <h3 style="margin-top:0px; margin-bottom: 0.8rem; font-size: 1.1rem; color: var(--accent-2);">
+                Real Knowledge Graphs in Action
+              </h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">
+                Every news item is transformed into a rich Semantic Knowledge Graph, connecting entities, vulnerabilities, and relationships — enabling explainable, deterministic intelligence.
+              </p>
+              <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                <strong>This is why we have zero hallucinations:</strong> Every connection is mapped, every relationship is explicit, every decision is traceable.
+              </p>
+            </div>
+            <div style="text-align: center;">
+              <img src="/images/news-article-detailed.jpg" alt="News Article Knowledge Graph" 
+              style="height:13em; width: 100%; border-radius: 12px; border: 1px solid rgba(148,163,184,0.2);">
+              <p style="margin-top: 0.4rem; font-size: 0.75rem; color: var(--text-muted);">News text transformed to Semantic Knowledge Graph</p>
+            </div>
+            <div style="text-align: center;">
+              <img src="/images/connecting-persona-graph-with-news.png" alt="Matching to Persona Interest" 
+              style="height:13em; width: 100%; border-radius: 12px; border: 1px solid rgba(148,163,184,0.2);">
+              <p style="margin-top: 0.4rem; font-size: 0.75rem; color: var(--text-muted);">Matching 'Persona Graph' with 'News Graph'</p>
+            </div>
+          </div>
+        </div>   
       </div>
     </section>
     
@@ -1111,119 +1187,119 @@
     
     <!-- Tech Strategy -->
 
-  <section class="section" id="tech-strategy">
-    <div class="shell">
-      <div class="section-header">
-        <div>
-          <div class="section-tag">Technology Strategy</div>
-          <h2 class="section-title">Radical Architecture: 100% Open Source, Serverless Graph, Zero Lock-in.</h2>
-        </div>
-        <p class="section-description">
-          Built for explainability, determinism, and deployment anywhere. 
-          This isn't a prototype that needs to be "productionized", it's production-ready from day one.
-        </p>
-      </div>
-
-      <div class="columns-3" style="gap: 1.5rem; margin-bottom: 2rem;">
-        <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
-            <span style="font-size: 1.5rem;">🔓</span> 100% Open Source
-          </h3>
-          <p style="margin-bottom: 0.8rem;">
-            <strong>ALL code is open source</strong> — not just core components. Full transparency 
-            for security audits and compliance.
+    <section class="section" id="tech-strategy">
+      <div class="shell">
+        <div class="section-header">
+          <div>
+            <div class="section-tag">Technology Strategy</div>
+            <h2 class="section-title">Strategic Architecture: 100% Open Source, Serverless Graph, Zero Lock-in.</h2>
+          </div>
+          <p class="section-description">
+            Built for explainability, determinism, and deployment anywhere. 
+            This isn't a prototype that needs to be "productionized", it's production-ready from day one.
           </p>
-          <ul class="bullet-list" style="font-size: 0.85rem;">
-            <li>Complete codebase on GitHub</li>
-            <li>Security teams can audit everything</li>            
-            <li>No vendor lock-in, ever</li>
-          </ul>
-          <div class="badge-row" style="margin-top: 0.8rem;">
-            <span class="badge accent">Zero black boxes</span>
+        </div>
+
+        <div class="columns-3" style="gap: 1.5rem; margin-bottom: 2rem;">
+          <div class="card">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+              <span style="font-size: 1.5rem;">🔓</span> 100% Open Source
+            </h3>
+            <p style="margin-bottom: 0.8rem;">
+              <strong>ALL code is open source</strong> - not just core components. Full transparency 
+              for security audits and compliance.
+            </p>
+            <ul class="bullet-list" style="font-size: 0.85rem;">
+              <li>Complete codebase on GitHub</li>
+              <li>Security teams can audit everything</li>            
+              <li>No vendor lock-in, ever</li>
+            </ul>
+            <div class="badge-row" style="margin-top: 0.8rem;">
+              <span class="badge accent">Zero black boxes</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+              <span style="font-size: 1.5rem;">☁️</span> Serverless Graph DB
+            </h3>
+            <p style="margin-bottom: 0.8rem;">
+              <strong>No traditional "always-on" databases.</strong> We use cloud storage (S3) as our 
+              database with serverless graph processing.
+            </p>
+            <ul class="bullet-list" style="font-size: 0.85rem;">
+              <li>S3 as primary data store</li>
+              <li>Serverless graph computations</li>
+              <li>Built-in intelligent caching</li>
+            </ul>
+            <div class="badge-row" style="margin-top: 0.8rem;">
+              <span class="badge accent">Infinitely scalable</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
+              <span style="font-size: 1.5rem;">🌐</span> Runs Anywhere
+            </h3>
+            <p style="margin-bottom: 0.8rem;">
+              Deploy on <strong>Lambda, K8s, or customer's own cloud</strong> - meeting the customer's 
+      security and privacy requirements.
+            </p>
+            <ul class="bullet-list" style="font-size: 0.85rem;">
+              <li>AWS Lambda (our SaaS)</li>
+              <li>Kubernetes (on-prem)</li>
+              <li>Customer cloud environments</li>
+            </ul>
+            <div class="badge-row" style="margin-top: 0.8rem;">
+              <span class="badge accent">Enterprise-ready</span>
+            </div>
           </div>
         </div>
 
-        <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
-            <span style="font-size: 1.5rem;">☁️</span> Serverless Graph DB
-          </h3>
-          <p style="margin-bottom: 0.8rem;">
-            <strong>No traditional "always-on" databases.</strong> We use cloud storage (S3) as our 
-            database with serverless graph processing.
-          </p>
-          <ul class="bullet-list" style="font-size: 0.85rem;">
-            <li>S3 as primary data store</li>
-            <li>Serverless graph computations</li>
-            <li>Built-in intelligent caching</li>
-          </ul>
-          <div class="badge-row" style="margin-top: 0.8rem;">
-            <span class="badge accent">Infinitely scalable</span>
+        <div class="grid-2" style="gap: 2rem;">
+          <div class="card">
+            <h3>Semantic Knowledge Graphs</h3>
+            <p style="margin-bottom: 0.8rem;">
+              Our graph-first architecture delivers <strong>explainability and determinism</strong> - 
+              rare in GenAI solutions.
+            </p>
+            <ul class="bullet-list">
+              <li><strong>Explainable AI:</strong> Every recommendation traces back to source data</li>
+              <li><strong>Deterministic outputs:</strong> Same input = same output, always</li>
+              <li><strong>Relationship intelligence:</strong> Connections between entities ARE the intelligence</li>            
+            </ul>
+            <div class="quote" style="margin-top: 1rem;">
+              "You can literally click through to see WHY any piece of news was selected and HOW it connects to your interests"
+            </div>
+          </div>
+
+          <div class="card card-alt">
+            <h3>Enterprise-Grade NFRs</h3>
+            <p style="margin-bottom: 0.8rem;">
+              Built with <strong>Non-Functional Requirements</strong> as first-class citizens.
+            </p>
+            <div class="stat-grid" style="grid-template-columns: repeat(2, 1fr);">
+              <div class="stat-pill">
+                <span class="value">CI/CD Pipeline</span>
+                Automated testing & deployment
+              </div>
+              <div class="stat-pill">
+                <span class="value">Stateless Services</span>
+                Every service is independent and has no state or db
+              </div>
+              <div class="stat-pill">
+                <span class="value">93%+ Test Coverage</span>
+                Unit, integration, end-to-end
+              </div>
+              <div class="stat-pill">
+                <span class="value">Built-in Caching</span>
+                Intelligent cache at every layer
+              </div>
+            </div>          
           </div>
         </div>
-
-        <div class="card">
-          <h3 style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.8rem;">
-            <span style="font-size: 1.5rem;">🌐</span> Runs Anywhere
-          </h3>
-          <p style="margin-bottom: 0.8rem;">
-            Deploy on <strong>Lambda, Kubernetes, or customer's own cloud</strong> — a unique 
-            revenue model others can't match.
-          </p>
-          <ul class="bullet-list" style="font-size: 0.85rem;">
-            <li>AWS Lambda (our SaaS)</li>
-            <li>Kubernetes (on-prem)</li>
-            <li>Customer cloud environments</li>
-          </ul>
-          <div class="badge-row" style="margin-top: 0.8rem;">
-            <span class="badge accent">Enterprise-ready</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid-2" style="gap: 2rem;">
-        <div class="card">
-          <h3>Semantic Knowledge Graphs</h3>
-          <p style="margin-bottom: 0.8rem;">
-            Our graph-first architecture delivers <strong>explainability and determinism</strong> — 
-            rare in GenAI solutions.
-          </p>
-          <ul class="bullet-list">
-            <li><strong>Explainable AI:</strong> Every recommendation traces back to source data</li>
-            <li><strong>Deterministic outputs:</strong> Same input = same output, always</li>
-            <li><strong>Relationship intelligence:</strong> Connections between entities ARE the intelligence</li>            
-          </ul>
-          <div class="quote" style="margin-top: 1rem;">
-            "You can literally click through to see WHY any piece of news was selected and HOW it connects to your interests"
-          </div>
-        </div>
-
-        <div class="card card-alt">
-          <h3>Enterprise-Grade NFRs</h3>
-          <p style="margin-bottom: 0.8rem;">
-            Built with <strong>Non-Functional Requirements</strong> as first-class citizens.
-          </p>
-          <div class="stat-grid" style="grid-template-columns: repeat(2, 1fr);">
-            <div class="stat-pill">
-              <span class="value">CI/CD Pipeline</span>
-              Automated testing & deployment
-            </div>
-            <div class="stat-pill">
-              <span class="value">Stateless Services</span>
-              Every service is independent
-            </div>
-            <div class="stat-pill">
-              <span class="value">100% Test Coverage</span>
-              Unit, integration, end-to-end
-            </div>
-            <div class="stat-pill">
-              <span class="value">Built-in Caching</span>
-              Intelligent cache at every layer
-            </div>
-          </div>          
-        </div>
-      </div>
-    </div>
-  </section>
+      </div>   
+    </section>
 
     <div class="page-break"></div>
 
@@ -1237,7 +1313,7 @@
             <h2 class="section-title">Massive information-overload market. Cyber is our beachhead.</h2>
           </div>
           <p class="section-description">
-            Knowledge workers in every high-stakes domain suffer from news overload. We start with cybersecurity —
+            Knowledge workers in every high-stakes domain suffer from news overload. We start with cybersecurity -
             where missing a signal can mean a breach.
           </p>
         </div>
@@ -1249,7 +1325,7 @@
               Tens of millions of professionals globally rely on timely, curated information to do their jobs. We focus first on:
             </p>
             <ul class="bullet-list">
-              <li><strong>Cybersecurity professionals</strong> — CISOs, security directors, analysts and incident teams.</li>
+              <li><strong>Cybersecurity professionals</strong> - CISOs, security directors, analysts and incident teams.</li>
               <li><strong>Thousands of organisations</strong> globally that need to stay ahead of threats, not chase them.</li>
               <li><strong>Future verticals</strong> such as finance and healthcare where explainable AI curation is equally critical.</li>
             </ul>
@@ -1287,7 +1363,7 @@
               <div class="timeline-item">
                 <span class="label">Pilot feedback</span>
                 <strong>CISOs validate time saved</strong>
-                Early testers report significant reduction in time spent scanning cyber news — while feeling better informed.
+                Early testers report significant reduction in time spent scanning cyber news - while feeling better informed.
               </div>
               <div class="timeline-item">
                 <span class="label">Founder advantage</span>
@@ -1298,11 +1374,11 @@
 
             <div class="quote">
               “MyFeeds-AI cut my daily cyber news scanning from hours to minutes and made it easier to brief my team.”
-              <span>— Early CISO pilot (beta)</span>
+              <span>- Early CISO pilot (beta)</span>
             </div>
           </div>
         </div>
-      </div>
+      </div>        
     </section>
 
     <div class="page-break"></div>
@@ -1317,7 +1393,7 @@
             <h2 class="section-title">SaaS subscriptions with content-sharing upside. Profitable per user from day one.</h2>
           </div>
           <p class="section-description">
-            MyFeeds-AI monetises through recurring SaaS, enterprise licenses and aligned content partnerships —
+            MyFeeds-AI monetises through recurring SaaS, enterprise licenses and aligned content partnerships -
             designed so that every post-trial user contributes margin.
           </p>
         </div>
@@ -1349,12 +1425,12 @@
             </p>
             <ul class="bullet-list">
               <li>Lean, serverless infrastructure keeps fixed costs low and scales linearly with demand.</li>
-              <li>Every user after trial contributes positive margin — no “growth at negative gross margin”.</li>
+              <li>Every user after trial contributes positive margin - no “growth at negative gross margin”.</li>
               <li>Revenue sharing creates a virtuous cycle: the more we pay content providers, the more value we deliver to users.</li>
             </ul>
           </div>
         </div>
-      </div>
+      </div>        
     </section>
     
     <div class="page-break"></div>
@@ -1368,8 +1444,7 @@
             <h2 class="section-title">Raising €300k to make explainable AI briefings the norm in cybersecurity.</h2>
           </div>
           <p class="section-description">
-            Capital-efficient, cloud-native and focused on product-market fit in cyber — with a clear path to ARR and
-            future verticals.
+            Seeking growth funding for specific projects that scale without adding fixed costs. <strong>🇵🇹 🇪🇺 Portugal-based, EU-compliant.</strong>
           </p>
         </div>
 
@@ -1378,14 +1453,15 @@
             <h3>The ask</h3>
             <p>
               We are raising <strong>€300,000</strong> for a <strong>20% equity stake</strong>, implying a <strong>€1.5M post-money valuation</strong>.
-              This provides <strong>12–18 months of runway</strong> given our lean setup and low burn.
+              As a <strong>'profitable by design'</strong> company (each user generates positive margin from day one), this funding sponsors specific growth projects 
+              with clear hypotheses - without adding fixed costs or dependencies.
             </p>
 
             <div class="columns-3" style="margin-top:1rem;">
               <div>
                 <div class="label">Round size</div>
                 <div class="big-number">€300k</div>
-                <div class="number-note">early-stage capital to accelerate product &amp; go-to-market.</div>
+                <div class="number-note">growth capital for targeted initiatives.</div>
               </div>
               <div>
                 <div class="label">Equity</div>
@@ -1393,9 +1469,9 @@
                 <div class="number-note">aligned with angel &amp; seed investors.</div>
               </div>
               <div>
-                <div class="label">Runway</div>
-                <div class="big-number">12–18 mo</div>
-                <div class="number-note">to hit PMF and strong early ARR.</div>
+                <div class="label">HQ Location</div>
+                <div class="big-number">🇵🇹 🇪🇺</div>
+                <div class="number-note">Portugal-based, serving global market.</div>
               </div>
             </div>
           </div>
@@ -1403,62 +1479,54 @@
           <div class="card card-alt">
             <h3>Use of funds</h3>
             <p>
-              Funding is allocated to hit clear product, revenue and market milestones in the cybersecurity vertical.
+              Funding sponsors <strong>specific growth experiments</strong> without increasing burn rate. 
+              Each project has clear success metrics and no fixed cost commitment.
             </p>
 
             <div class="pie-legend">
               <div class="legend-item">
                 <span class="legend-dot"></span>
-                <span><strong>70% · Product &amp; engineering.</strong> Hire on-demand engineering team, ship advanced analytics and feedback loops faster.</span>
+                <span><strong>70% · Product experiments.</strong> On-demand engineering for specific features (advanced analytics, enterprise integrations) - contractors only, no permanent hires.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot mkt"></span>
-                <span><strong>10% · Marketing &amp; community.</strong> Targeted campaigns at cyber conferences and online communities.</span>
+                <span><strong>10% · Marketing tests.</strong> Conference sponsorships and community campaigns - measurable ROI required.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot partner"></span>
-                <span><strong>10% · Content partnerships.</strong> Integrations and incentives for key premium content providers.</span>
+                <span><strong>10% · Content partnerships.</strong> One-time integrations and pilots with premium providers - pay for performance only.</span>
               </div>
               <div class="legend-item">
                 <span class="legend-dot admin"></span>
-                <span><strong>10% · Admin &amp; legal.</strong> Keep the operation compliant, lean and ready for the next round.</span>
+                <span><strong>10% · Admin &amp; compliance.</strong> EU compliance, certifications, and legal - enabling enterprise sales.</span>
               </div>
             </div>
 
             <div class="investor-note">
-              Milestones with this round:
+              Key projects this funding enables:
               <ul class="bullet-list">
-                <li>Achieve strong product-market fit in cybersecurity.</li>
-                <li>Convert pilots into paying customers; target ~€500k+ ARR within 18 months.</li>
-                <li>Secure flagship enterprise references to support a Seed+ / Series A raise.</li>
+                <li>Test enterprise features with 5-10 pilot customers.</li>
+                <li>Experiment with paid acquisition channels to accelerate from current organic growth to €500k+ ARR.</li>
+                <li>Expand data feeds and integrations, strengthen NFRs, build interactive graph visualizations, and scale delivery of multiple personalized briefs per user.</li>
               </ul>
-            </div>
-
-            <!--<div class="investor-cta">
-              <a href="mailto:dinis.cruz@owasp.org?subject=MyFeeds-AI%20Investor%20Intro" class="btn-primary">
-                <span>Request full deck</span>
-                <span class="icon">✉</span>
-              </a>
-              <span class="pill-soft">Seeking angels who bring cyber, SaaS or media experience.</span>
-            </div>-->
-            
+            </div>            
           </div>
-        </div>
+        </div>        
       </div>
     </section>
+
+    <div class="print-footer">
+      <span>MyFeeds-AI • CC-BY 4.0 • v0.1.1 • 22 Nov 2024 • 6 Pages</span>
+      <span class="page-number"></span>
+    </div>      
+
   </main>
 
   <!-- FOOTER -->
   <footer class="no-print">
     <div class="shell">
       <div class="footer-inner">
-        <span>© <span id="year"></span> MyFeeds-AI. All rights reserved.</span>
-        <div class="footer-links">
-          <a href="#problem">Overview</a>
-          <a href="#solution">Product</a>
-          <a href="#market">Market</a>
-          <a href="#investors">Investors</a>
-        </div>
+        <span>© <span id="year"></span> MyFeeds-AI • CC-BY 4.0 • v0.1.1 • 22 Nov 2024</span>        
       </div>
     </div>
   </footer>
